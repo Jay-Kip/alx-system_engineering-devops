@@ -1,0 +1,2 @@
+#!/bin/bash
+last -1 iacta >> iacta
