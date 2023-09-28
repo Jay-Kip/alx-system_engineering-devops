@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Sript that prints "Best school" 10 times using until
-counter = 0
+counter=0
 until [ $counter -eq 10 ]
 do
 	echo "Best School"
