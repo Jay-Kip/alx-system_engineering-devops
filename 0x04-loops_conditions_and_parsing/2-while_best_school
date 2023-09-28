@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# This script prints "Best school" 10 times using a while loop
 i=0
 
 while ((i < 10))
