@@ -13,7 +13,7 @@ do
 	then
 		echo "FizzBuzz"
 	else
-		echo "$i"
+		echo $i
 	fi
 	((i++))
 	
