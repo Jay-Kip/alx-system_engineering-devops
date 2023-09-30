@@ -5,14 +5,14 @@
 #I am invincible!!! when receiving a SIGTERM signal
 
 # Function that handle SIGTERM signal
-handle_sigterm() {
+handle_sigterm () {
 	echo "I am invincible!!!"
-	exit 0
 }
 
-trap handle_sigterm SIGTERM
+#trap handle_sigterm SIGTERM
 
 while true; do
+	trap handle_sigterm SIGTERM
 	echo "To infinity and beyond"
 	sleep 2
 done
