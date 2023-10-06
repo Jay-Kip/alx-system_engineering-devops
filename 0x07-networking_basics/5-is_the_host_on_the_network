@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Bash script that pings the address passed as the first arg
+script_name=$(basename "$0")
 if [ $# -eq 0 ]; then
-       echo "Usage: $0 {IP_ADDRESS}"
+       echo "Usage: $script_name {IP_ADDRESS}"
        exit 1
 fi
 
