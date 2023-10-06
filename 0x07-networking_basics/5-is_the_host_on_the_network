@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Bash script that pings the address passed as the first arg
-addr=$1
 if [ $# -eq 0 ]; then
        echo "Usage: $0 {IP_ADDRESS}"
        exit 1
 fi
 
-ping -c 5 $1 
+ping -c 5 "$1"
