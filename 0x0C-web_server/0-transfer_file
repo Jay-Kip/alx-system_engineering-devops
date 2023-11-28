@@ -20,8 +20,8 @@ export SSHPASS="-oStrictHostKeyChecking=no"
 scp -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"
 
 # Check if the scp command was successful
-if scp -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"; then
-    echo "File transfer completed successfully."
-else
-    echo "File transfer failed."
-fi
+#if scp -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"; then
+#   echo "File transfer completed successfully."
+#   #else
+#    echo "File transfer failed."
+#fi
