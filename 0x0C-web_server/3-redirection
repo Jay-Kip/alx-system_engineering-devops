@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Script that configures nginx server to redirect
+
+# Update system packages
+sudo apt update
+
+# Install Nginx
+sudo apt install -y nginx
+
+# Configure Nginx redirection
+sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/redirect
+server {
+    listen 80;
+    listen [::]:80;
+    server_name yourdomain.com;
+
+    location /redirect_me {
+        return 301 https://example.com/new-page;
+    }
+
+    location / {
+        return 404;
+    }
+}
+EOF'
+
+# Enable the redirection site
+sudo ln -s /etc/nginx/sites-available/redirect /etc/nginx/sites-enabled/
+
+# Remove the default Nginx configuration
+sudo rm /etc/nginx/sites-enabled/default
+
+# Test Nginx configuration
+sudo nginx -t
+
+# Restart Nginx service
+sudo service nginx restart
