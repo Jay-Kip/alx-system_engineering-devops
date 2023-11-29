@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #Script that transfers a file from our client to a server
 
-# Check if all parameters are provided
+# 4 Params should be provided
 if [ $# -lt 4 ]; then
   echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
   exit 1
@@ -12,7 +12,7 @@ server_ip=$2
 username=$3
 private_key=$4
 
-# Transfer the file using scp
+# Transfer the file using scp to the server
 scp -o StrictHostKeyChecking=no -i "$private_key" "$path_to_file" "$username@$server_ip:~/"
 
 exit 0
