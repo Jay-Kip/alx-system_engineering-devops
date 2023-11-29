@@ -2,22 +2,25 @@
 # Script to install and configure nginx
 
 # Update the package lists
-sudo apt update
+sudo apt-get update -y
 
 # Install Nginx
-sudo apt install -y nginx
+sudo apt install nginx -y
 
 # Start Nginx service
 sudo systemctl start nginx
 
 # Configure Nginx to listen on port 80
-sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+#sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
 
 # Restart Nginx service to apply the configuration changes
-sudo systemctl restart nginx
+#sudo systemctl restart nginx
 
 # Create a custom index.html file
-echo "Hello World!" | sudo tee /var/www/html/index.html
+echo "Hello World!"  > /var/www/html/index.html
+
+# Restart the web server
+sudo service nginx restart
 
 # Ensure proper ownership and permissions for the index.html file
 # sudo chown www-data:www-data /var/www/html/index.html
