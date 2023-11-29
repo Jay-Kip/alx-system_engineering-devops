@@ -12,10 +12,10 @@ sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/redirect
 server {
     listen 80;
     listen [::]:80;
-    server_name yourdomain.com;
+    server_name hanningtonkiptoo.tech;
 
     location /redirect_me {
-        return 301 https://example.com/new-page;
+        return 301 hanningtonkiptoo.tech;
     }
 
     location / {
