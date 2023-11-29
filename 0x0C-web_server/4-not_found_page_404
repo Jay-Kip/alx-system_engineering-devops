@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#Custom page 404
+
+# Update system packages
+sudo apt update
+
+# Install Nginx
+sudo apt install -y nginx
+
+# Configure Nginx custom 404 page
+sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/custom404
+server {
+    listen 80;
+    listen [::]:80;
+    server_name hanningtonkiptoo.net;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+        return 404 "Ceci n'est pas une page";
+    }
+}
+EOF'
+
+# Enable the custom 404 site
+sudo ln -s /etc/nginx/sites-available/custom404 /etc/nginx/sites-enabled/
+
+# Remove the default Nginx configuration
+sudo rm /etc/nginx/sites-enabled/default
+
+# Create the custom 404 page
+sudo bash -c 'echo "Ceci n'\''est pas une page" > /var/www/html/404.html'
+
+# Test Nginx configuration
+sudo nginx -t
+
+# Restart Nginx service
+sudo service nginx restart
