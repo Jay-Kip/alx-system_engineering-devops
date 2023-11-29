@@ -12,7 +12,7 @@ sudo apt-get install nginx -y
 sudo systemctl start nginx
 
 # html file
-echo "Hello World!"  >  /var/www/html/index.html > /dev/null
+echo "Hello World!"  | sudo tee  /var/www/html/index.html > /dev/null
 
 
 NEW_RULE="\\\n\tlocation = /redirect_me {\n\t\t return 301 https://google.com;\n\t}\n"
