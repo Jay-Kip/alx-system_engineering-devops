@@ -1,45 +1,26 @@
 #!/usr/bin/env bash
-#Custom page 404
+# A bash script that installs nginx on an ubuntu machine.
+# This scripts also configures the default webpage served to be "Hello World!"
+# When request url matches /redirect_me, it redirects to my youtube channel.
+# When a page/file not found in the document root is requested, the 404.html
+# page is served to the client as stated with the error_page directive.
 
-# Update system packages
-sudo apt update
+sudo apt-get update -y
 
-# Install Nginx
-sudo apt install -y nginx
+sudo apt-get install nginx -y
 
-# Configure Nginx custom 404 page
-sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/custom404
-server {
-    listen 80;
-    listen [::]:80;
-    server_name hanningtonkiptoo.net;
+echo "Hello World!" | sudo dd status=none of=/var/www/html/index.html
 
-    root /var/www/html;
-    index index.html;
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html > /dev/null
 
-    location / {
-        try_files $uri $uri/ =404;
-    }
+NEW_RULE="\\\n\tlocation /redirect_me {\n\t\t return 301 https://www.youtube.com/@sammykingx;\n\t}\n"
 
-    error_page 404 /404.html;
-    location = /404.html {
-        internal;
-        return 404 "Ceci n'est pas une page";
-    }
-}
-EOF'
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
-# Enable the custom 404 site
-sudo ln -s /etc/nginx/sites-available/custom404 /etc/nginx/sites-enabled/
+sudo sed -i "53i $NEW_RULE" /etc/nginx/sites-available/default
 
-# Remove the default Nginx configuration
-sudo rm /etc/nginx/sites-enabled/default
+NEW_RULE="\\\n\terror_page 404 /404.html;\n\n\tlocation = /404.html {\n\t\tinternal;\n\t}\n"
 
-# Create the custom 404 page
-sudo bash -c 'echo "Ceci n'\''est pas une page" > /var/www/html/404.html'
+sudo sed -i "53i $NEW_RULE" /etc/nginx/sites-available/default
 
-# Test Nginx configuration
-sudo nginx -t
-
-# Restart Nginx service
-sudo service nginx restart
+sudo service nginx reload
