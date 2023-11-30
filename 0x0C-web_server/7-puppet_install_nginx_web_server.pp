@@ -1,3 +1,5 @@
+#/usr/bin/env bash
+# Manifest that configures a ubuntu web server
 package { 'nginx':
   ensure => 'present',
 }
