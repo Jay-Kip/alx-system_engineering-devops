@@ -21,6 +21,6 @@ sudo sed -i "53i $NEW_RULE" /etc/nginx/sites-available/default
 
 NEW_RULE="\\\n\terror_page 404 /404.html;\n\n\tlocation /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}\n"
 
-sudo sed -i "63i $NEW_RULE" /etc/nginx/sites-available/default
+sudo sed -i "90i $NEW_RULE" /etc/nginx/sites-available/default
 
 sudo service nginx reload
