@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#Transfer file to server
+
+# Check if the script is called with the correct number of parameters
+if [ $# -lt 4 ]; then
+    echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+    exit 1
+fi
+
+# Assign the parameters to variables
+path_to_file=$1
+ip=$2
+username=$3
+path_to_ssh_key=$4
+
+# Disable strict host key checking
+export SSHPASS="-oStrictHostKeyChecking=no"
+
+# Transfer the file using scp to the user's home directory
+scp -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"
+
+# Check if the scp command was successful
+#if scp -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"; then
+#   echo "File transfer completed successfully."
+#   #else
+#    echo "File transfer failed."
+#fi
