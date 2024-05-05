@@ -33,19 +33,19 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend besthor-frontend
+frontend hanningtonkiptoo-frontend
         bind *:80
         mode http
         http-request redirect scheme https code 301 unless { ssl_fc }
         http-request set-header X_Forwarded-Proto http
-        default_backend besthor-backend
+        default_backend hanningtonkiptoo-backend
 
-frontend besthor-frontend-https
-        bind *:443 ssl crt /etc/haproxy/certs/besthor.tech.pem
-        http-request set-header X-Forwarded-Proto https
-        default_backend besthor-backend
+frontend hanningtonkiptoo-frontend-https
+       bind *:443 ssl crt /etc/haproxy/certs/www.hanningtonkiptoo.tech.pem
+       http-request set-header X-Forwarded-Proto https
+       default_backend hanningtonkiptoo-backend
 
-backend besthor_backend
+backend hanningtonkiptoo-backend
         balance roundrobin
         server 328402-web-01 100.26.174.181:80 check
         server 328402-web-02 18.207.3.92:80 check
