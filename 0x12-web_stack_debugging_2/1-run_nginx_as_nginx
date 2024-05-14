@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Fix container so that Nginx is running as the nginx user.
+
+# Replace port 80 with 8080
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+
+# Change permission
+chmod 644 /etc/nginx/nginx.conf
+
+# Restart nginx
+sudo service nginx restart
