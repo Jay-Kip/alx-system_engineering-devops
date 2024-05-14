@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Fix container so that Nginx is running as the nginx user.
 
+# Kill apache2 because Nginx and Apache can't both run on the same port (80 or 8080)
 pkill apache2
 # Replace port 80 with 8080
 sed -i 's/80/8080/g' /etc/nginx/sites-available/default
