@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Bash script taht accept one argument
+
+echo "$1"
