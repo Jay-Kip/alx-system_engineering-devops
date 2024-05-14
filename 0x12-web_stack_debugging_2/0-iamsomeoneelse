@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 # Bash script taht accept one argument
 
-echo "$1"
+if [ $# -eq 0 ]; then
+	echo "Error: Provide a username as an argument."
+	exit 1
+fi
+
+username="$1"
+sudo -u "$username" whoami
