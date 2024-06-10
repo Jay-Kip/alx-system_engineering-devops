@@ -17,6 +17,9 @@ if __name__ == "__main__":
     user = user_response.json()
     params = {"userId": employee_id}
 
+    # Extract username
+    username = user.get("username")
+
     todos_response = requests.get(url + "todos", params=params)
 
     todos = todos_response.json()
@@ -27,7 +30,7 @@ if __name__ == "__main__":
             completed.append(todo.get("tittle"))
 
     with open(f"{employee_id}.csv", "w", newline="") as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(
-            ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-        writer.writerow(completed)
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        [writer.writerow(
+            [employee_id, username, t.get("completed"), t.get("title")]
+         ) for t in todos]
