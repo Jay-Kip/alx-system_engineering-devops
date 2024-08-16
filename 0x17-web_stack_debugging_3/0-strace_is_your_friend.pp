@@ -1,9 +1,17 @@
-# A puppet manuscript to replace a line in a file on a server
+file_line { 'replace-phpp-with-php':
+ensure  => multiple,
+path    => '/var/www/html/wp-settings.php',
+line    => 'phpp',
+match   => '^phpp$',
+content => 'php',
+replace => all,
+backup  => '.bak',
+diff    => true,
+notify  => Exec['restart-apache'],
+}
 
-$file_to_edit = '/var/www/html/wp-settings.php'
-#replace line containing "phpp" with "php"
-
-exec {	'fix-wordpress'	:
-	command	=>	'sed -i s/phpp/php/g	/var/www/html/wp-settings.php',
-	path		=>	'/usr/local/bin/:/bin/'
+exec { 'restart-apache':
+command   => 'systemctl restart apache2',
+path      => ['/usr/local/bin', '/usr/bin', '/bin'],
+refreshed => true,
 }
