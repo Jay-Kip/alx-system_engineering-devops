@@ -1,3 +1,4 @@
+# Script to replace line on a server
 file_line { 'replace-phpp-with-php':
 ensure  => multiple,
 path    => '/var/www/html/wp-settings.php',
