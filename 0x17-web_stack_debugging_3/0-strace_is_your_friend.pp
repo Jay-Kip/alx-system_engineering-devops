@@ -1,18 +1,19 @@
-# Script to replace line on a server
+# A Puppet script to replace a line in a file on a server
 file_line { 'replace-phpp-with-php':
-ensure  => multiple,
-path    => '/var/www/html/wp-settings.php',
-line    => 'phpp',
-match   => '^phpp$',
-content => 'php',
-replace => all,
-backup  => '.bak',
-diff    => true,
-notify  => Exec['restart-apache'],
+  path        => '/var/www/html/wp-settings.php',
+  line        => 'phpp',
+  match       => '^phpp$',
+  substitute  => 'php',
+  multiple    => true,
+  replace     => true,
+  replace_all => true,
+  backup      => '.bak',
+  show_diff   => true,
+  notify      => Exec['restart-apache'],
 }
 
 exec { 'restart-apache':
-command   => 'systemctl restart apache2',
-path      => ['/usr/local/bin', '/usr/bin', '/bin'],
-refreshed => true,
+  command     => '/usr/sbin/systemctl restart apache2',
+  path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+  refreshonly => true,
 }
